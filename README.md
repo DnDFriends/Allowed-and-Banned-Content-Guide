@@ -1,122 +1,75 @@
-# D&D Friends Allowed and Banned Content Guide
+# D&D Friends Allowed and Banned Content Guide — GitHub Ready v6
 
-Production-ready static website for the D&D Friends 5R content guide.
+This is the production GitHub Pages build of the **D&D Friends Allowed and Banned Content Guide**.
 
-The site is designed for **GitHub Pages** and uses the D&D Friends Google Sheet as its live data source. It also contains an embedded snapshot so the guide remains usable if Google Sheets is temporarily unavailable.
+`index.html` is fully self-contained: its CSS, JavaScript, live Google Sheets loader, fallback dataset, theme system, and UI behavior are embedded in the page. This avoids missing-asset problems on GitHub Pages and also makes local testing easy.
 
-## Live Google Sheet
+## Deploy to GitHub Pages
 
-**Spreadsheet ID:** `1i8i5JMJCbrRivC7QpjdGwED-dZli-kf_pXTJaBucADU`
+1. Open the repository used for the Content Guide.
+2. Replace the old site files at the repository root with the contents of this folder.
+3. Commit/push to the branch GitHub Pages uses (normally `main`).
+4. In **Settings → Pages**, use **Deploy from a branch**, `main`, `/ (root)` if it is not already configured.
+5. Hard-refresh the published page after deployment (`Ctrl+F5` on Windows).
 
-**Editor:** https://docs.google.com/spreadsheets/d/1i8i5JMJCbrRivC7QpjdGwED-dZli-kf_pXTJaBucADU/edit
+`.nojekyll` is included. No `CNAME` is included because a CNAME requires a real custom hostname, not the site display title.
 
-The website reads these tabs:
+## Content updates
 
-- Sources
-- Classes
-- Subclasses
-- Species
-- Class Options
-- Backgrounds
-- Feats
-- Spells
-- Site Config
+Normal rules/content changes should be made in the Google Sheet, not in this HTML.
 
-The live feed refreshes automatically every **5 minutes** and users can also press **Refresh Data** for an immediate reload.
+Google Sheet ID:
 
-## Important: make the sheet readable by the public site
+`1i8i5JMJCbrRivC7QpjdGwED-dZli-kf_pXTJaBucADU`
 
-A static GitHub Pages site cannot read a private Google Sheet without OAuth.
+Editor:
 
-Before publishing the website, make the data readable from the web using one of Google's read-only public options. The safest workflow is to **Publish to web** while keeping edit access restricted to staff:
+https://docs.google.com/spreadsheets/d/1i8i5JMJCbrRivC7QpjdGwED-dZli-kf_pXTJaBucADU/edit
 
-1. Open the Google Sheet.
-2. Use **File → Share → Publish to web**.
-3. Publish the workbook or all tabs used by the site.
-4. Do **not** give public edit access.
+The site uses the Sheet as its live data source and also includes an embedded fallback snapshot so the guide remains usable if the live feed is unavailable.
 
-The site never writes to the Sheet. Website visitors only read the published data.
+## v6 MIT-parity interface
 
-## GitHub Pages deployment
+This release carries over the approved design principles from the current D&D Friends Magic Item Table UI:
 
-### Easiest method
+- application-wide contrast-safe theme handling;
+- MIT-style themed content names, including Pride/Trans gradient treatments;
+- Search & Filter drawer, closed by default;
+- active-filter/result summary and Clear All;
+- Display menu with text sizing, fonts, interface scale, and Auto Fit;
+- Simple Mode and touch-oriented Mobile Mode;
+- hover/focus/tap content details with status, source, parent/category, level, and errata where applicable;
+- optional bottom navigation, hidden by default;
+- More menu for secondary actions and data status;
+- technical Google Sheet status removed from the main interface;
+- saved browsing/display/filter/mode/navigation state;
+- versioned local settings migrations;
+- visual theme-preset preview;
+- Escape closes temporary UI;
+- `/` opens Search & Filter and focuses search;
+- slimmer sticky navigation after scrolling;
+- MIT-style mobile touch sizing and one-column presentation.
 
-1. Create a GitHub repository, for example `dnd-friends-content-guide`.
-2. Upload **the contents of this folder** to the repository root. Do not upload the outer folder itself as a nested directory.
-3. Commit the files to the `main` branch.
-4. Open **Repository Settings → Pages**.
-5. Under **Build and deployment**, choose **Deploy from a branch**.
-6. Select `main` and `/ (root)`.
-7. Save.
+Intentionally **not** included: hierarchy collapsing and permalink/deep-link behavior.
 
-GitHub will provide the public Pages URL after the first deployment.
+## Theme system
 
-`.nojekyll` is included so GitHub Pages serves the site as ordinary static files without Jekyll processing.
+The build retains the large MIT-style preset catalogue, custom theme editor, tricolor builder, theme import/export, font/text scaling, and guide semantic-status color preservation.
 
-## Updating content
+Theme and UI preferences are stored only in the visitor's browser via `localStorage`; they do not modify the Google Sheet.
 
-For normal rule updates, **do not edit the website files**.
+## Live Google Sheet access
 
-Edit the Google Sheet instead. The site will update from the Sheet automatically within five minutes, or immediately when a visitor presses **Refresh Data**.
+A public GitHub Pages site must be able to read the Sheet. If live loading does not work, make sure the required Sheet data is available through Google's read-only web publishing/sharing configuration. Edit access should remain restricted to staff.
 
-The static `data.js` and `data.json` files are fallback snapshots. They are only used when the live Sheet cannot be reached. Replacing those snapshots is optional for routine changes but recommended before major releases.
+## Local test
 
-## Included color themes
-
-Theme choice is stored locally in each visitor's browser and does not change the spreadsheet or affect other users.
-
-- Default
-- White with Black Text
-- Black with White Text
-- Phoenix
-- NY Knicks
-- D&D Beyond
-- Roll20
-- Foundry VTT
-- Custom
-
-The Custom theme includes both basic and advanced color controls. Long Document view can use either **Parchment** or **Match Theme**. Print/PDF output uses a clean print-safe presentation.
-
-## Repository files
-
-| File | Purpose |
-| --- | --- |
-| `index.html` | Main website page |
-| `style.css` | Layout, responsive styling, themes, and print styles |
-| `app.js` | Search, filtering, rendering, theme controls, long-document mode, and refresh behavior |
-| `live-sheet.js` | Google Sheets live-data loader and Sheet ID |
-| `data.js` | Embedded fallback dataset used directly by the browser |
-| `data.json` | Human/machine-readable fallback snapshot |
-| `.nojekyll` | Prevents GitHub Pages Jekyll processing |
-| `.gitignore` | Ignores common local OS/editor files |
-
-## Custom domain (optional)
-
-A GitHub Pages `CNAME` file is only needed if you later connect a real hostname, for example `guide.example.com`. The site title **D&D Friends Allowed and Banned Content Guide** is not a valid CNAME value because CNAME files must contain a domain/hostname.
-
-## Local testing
-
-Double-clicking `index.html` usually works because the site has an embedded data fallback, but live Google Sheet access is best tested through a local web server.
-
-From this directory, for example:
+You can open `index.html` directly, or serve the folder locally:
 
 ```bash
 python -m http.server 8000
 ```
 
-Then open `http://localhost:8000/`.
+Then open:
 
-## Data behavior
-
-- Default view: **Everything**
-- Search and filters work across the content database.
-- Subclasses are tied to their parent class by ID.
-- Species variants remain attached to their parent species where applicable.
-- Status values: **Allowed**, **Banned**, **Superseded**.
-- Source badges can link to D&D Beyond or the original publication when a URL exists in the Sources sheet.
-- Server errata/modifications are displayed from the relevant sheet fields.
-- Long Document mode can be printed or saved as PDF.
-
-## Maintenance note
-
-`live-sheet.js` contains the Google Sheet ID. If the master spreadsheet is ever replaced rather than edited in place, update the `spreadsheetId` and `spreadsheetUrl` values in that file.
+`http://localhost:8000/`
