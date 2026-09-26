@@ -32,6 +32,22 @@ The site uses the Sheet as its live data source and also includes an embedded fa
 
 Every time data loads, the page checks it for broken cells: bare numbers in errata columns, links that are not web addresses, spell levels outside 0–9, parent IDs that point at nothing, source groups and source tags that are not on the Sources tab. Broken values are hidden or worked around so players never see them, and each one is listed under **More → Data check** (also logged to the browser console). If that button shows a warning, fix the listed cells in the Sheet.
 
+## v7.5 — features shared with the Magic Item Table
+
+- **Undo Reset:** after **More → Reset view & filters**, an **Undo** button appears for 10 seconds.
+- **Sheet checks only while the tab is visible:** the live Google Sheet is re-checked every 5 minutes only while the page is on screen, and again when you come back after more than a minute away.
+- **Flag preview:** nation themes show their flag next to the preset in Theme & Appearance.
+- **Reduced motion:** if the device asks for reduced motion, animations and smooth scrolling are turned off.
+- **Fix:** at the default 90% Auto Fit zoom, the hover card for an item landed on top of the item's own name (blocking clicks), and the Display/Modes/More menus sat slightly off their buttons. Both now line up correctly.
+
+## v7.4 — tidier cards
+
+- **Errata** no longer show in full on the cards. Entries with errata have a **✎** button next to their name; click it to show or hide the text. The header legend explains the symbol. Errata open by themselves when your search text is found inside them, and the Long Document still prints every errata in full.
+- **Bigger headings:** category headings (Species, Classes, Feats…), class names, class option and feat group titles, and the category tabs are larger.
+- **Species variants** (subspecies, lineages, dragon colors, legacies…) are hidden until you click the species name or its **▸ N variants** button. **Expand all / Collapse all** sit next to the Species heading. If a search or filter matches a variant but not its species (for example "cloud giant"), that species opens by itself.
+- **Class option groups** (Fighting Style, Eldritch Invocation…) collapse by clicking their title, with **Expand all / Collapse all**. Groups stay open while searching or filtering, so results are never hidden.
+- Open/closed choices for species and groups are remembered in the visitor's browser.
+
 ## v7.3 — three-state filters (show only / hide)
 
 - The Status and Source dropdowns are replaced by filter chips in **Search & Filter**. Each chip cycles on click: **1st click** shows only matching entries (✓), **2nd click** hides matching entries (✕, struck through), **3rd click** clears it.
